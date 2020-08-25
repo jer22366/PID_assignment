@@ -25,7 +25,7 @@
 <div class="container">
     
   <h2>Shoppingcart List</h2>
-  <a href="addproduct.php" class="btn btn-outline-success btn-sm float-right">new</a>
+  <!-- <a href="addproduct.php" class="btn btn-outline-success btn-sm float-right">new</a> -->
   <table class="table table-hover">
     <thead>
 
@@ -34,6 +34,7 @@
         <th>idc</th>
         <th>productid</th>
         <th>productname</th>
+        <th>amount</th>
       </tr>
     </thead>
     <tbody>
@@ -43,10 +44,11 @@
             <td><?php echo $row["idc"] ?></td>
             <td><?php echo $row["productId"] ?></td>
             <td><?php echo $row["productname"] ?></td>
+            <td><?php echo $row["amount"] ?></td>
         <td>
             <span class="float-right">
                 <a href="editform.php?id=<?= $row["id"]?>" class="btn btn-outline-success btn-sm">edit</a>
-                <a href="deleteemployee.php?id=<?= $row["id"]?>" class="btn btn-outline-danger btn-sm">delete</a>
+                <a href="deleteshoppingcart.php?id=<?= $row["id"]?>" class="btn btn-outline-danger btn-sm">delete</a>
                 
             </span>
         </td>
