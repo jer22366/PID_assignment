@@ -2,29 +2,26 @@
 	  require("connDB.php");
     session_start();
     if(isset($_POST["btnlogin"])){
+      
       $account=$_POST["account"];
       $passowrd=$_POST["password"];
+
       if(empty($account) || empty($passowrd)){
         header("location: index.php");
-      }
-      else{
-        $result = mysqli_query ( $link, "set names utf8" );
-        mysqli_select_db ( $link, $dbname );
+      }else{
         $commandText = <<<sqlcommand
-          select * from member where account="$account";
+        select * from member where account="$account";
         sqlcommand;
 
         $result = mysqli_query ( $link, $commandText );
         $row = mysqli_fetch_assoc ( $result );
 
         $_SESSION["account"]=$account;
-        $_SESSION["password"]=$passowrd;  
-
-        if($row["account"]==$account && $row["acpassword"]==$passowrd)
-          header("location: shopform.php");    
+        $_SESSION["password"]=$passowrd; 
+        if($row["account"]==$account && $row["acpassword"]==$passowrd){
+          header("location: shopform.php");   
+        }
       }
-      
-         
     }
     if(isset($_POST["btnregister"])){
       header("location: register.php");

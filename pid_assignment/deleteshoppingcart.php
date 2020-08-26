@@ -1,4 +1,5 @@
 <?php 
+require("connDB.php");
 if(!isset($_GET["id"])){
     die("id not found");
 }
@@ -8,8 +9,7 @@ if(! is_numeric($id))
 $sql = <<<multi
     delete from shoppingcart where ID=$id;
 multi;
-// require("connDB.php");
-// $result=$sql;
-// mysqli_query($link,$result);
-// header("location: index.php");
+$result=$sql;
+mysqli_query($link,$result);
+header("location:shoppingcar.php");
 ?>

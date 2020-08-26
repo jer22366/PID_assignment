@@ -3,13 +3,14 @@
     session_start();
     $account=$_SESSION["account"];
     
-    require_once("connDB.php");
     mysqli_query($link,"set names utf-8");
     $sqlcommand = <<<sql
-        select id,account,productname,amount from shoppingcart where account="$account";
+        select id,account,e.productname,amount,(price * amount) as "price" from shoppingcart e 
+        join products f on e.productId=f.productId where account="$account";
      sql;
-
+     
      $result=mysqli_query($link,$sqlcommand);
+     
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +23,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- <script src="scripts/jquery-1.9.1.min.js"></script>
+  <script src="scripts/jquery.mobile-1.3.2.min.js"></script> -->
 </head>
 <body>
 
@@ -37,6 +40,7 @@
         <th>account</th>
         <th>productname</th>
         <th>amount</th>
+        <th>price</th>
       </tr>
     </thead>
     <tbody>
@@ -46,6 +50,7 @@
             <td><?php echo $row["account"] ?></td>
             <td><?php echo $row["productname"] ?></td>
             <td><?php echo $row["amount"] ?></td>
+            <td><?php echo $row["price"] ?></td>
         <td>
             <span class="float-right">
                 <a href="editform.php?id=<?= $row["id"]?>" class="btn btn-outline-success btn-sm">edit</a>
@@ -54,11 +59,15 @@
             </span>
         </td>
       </tr>
+      
    <?php }?>
-      
-      
     </tbody>
   </table>
+</div>
+<div class="form-group col">
+  <div class=text-center>
+    <button name="btnok" type="submit" class="btn btn-primary text-center">確定</button>
+    <button name="btnback" type="submit" class="btn btn-primary text-center">返回</button>
 </div>
 </body>
 </html>

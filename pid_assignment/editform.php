@@ -7,18 +7,16 @@ if(! is_numeric($id))
     die("id not a number");
 
 if(isset($_POST["submit"])){
-  $firstName = $_POST["firstName"];
-  $lastName = $_POST["lastName"];
-  $cityid = $_POST["cityid"];
+  $Amount = $_POST["amount"];
   
-  // $sql=<<<multi
-  //       update employees set firstName ='$firstName',lastName='$lastName',cityID='$cityid'
-  //       where id = $id;
-  //     multi; 
-  // require("connDB.php");
-  // $result=$sql;
-  // mysqli_query($link,$result);
-  header("location: index.php");
+  $sql=<<<multi
+        update shoppingcart set amount='$Amount'
+        where id = $id;
+      multi; 
+  require("connDB.php");
+  $result=$sql;
+  mysqli_query($link,$result);
+  header("location: shoppingcar.php");
 }else{
   
   // $sql = <<<multi
@@ -28,7 +26,7 @@ if(isset($_POST["submit"])){
   // $row = mysqli_fetch_assoc($result);
 }
 if(isset($_POST["btnback"])){
-  header("location: index.php");
+  header("location: shoppingcar.php");
  }
 ?>
 
@@ -52,40 +50,11 @@ if(isset($_POST["btnback"])){
 
 <form method="POST">
   <div class="form-group col">
-    <label for="text" class="col-5 col-form-label">FirstName</label> 
+    <label for="text" class="col-5 col-form-label">數量</label> 
     <div class="col-8">
-      <input id="text" name="firstName" type="text" class="form-control">
+      <input id="text" name="amount" type="text" class="form-control">
     </div>
   </div>
-  <div class="form-group col">
-    <label for="text1" class="col-4 col-form-label">LastName</label> 
-    <div class="col-8">
-      <input id="text1" name="lastName" type="text" class="form-control">
-    </div>
-  </div>
-  <div class="form-group col">
-    <div class="col-4"></div> 
-    <div class="col-8">
-      <div class="custom-control custom-radio custom-control-inline">
-        <input name="cityid" id="radio_0" type="radio" checked="checked" class="custom-control-input" value="2"
-        <?= ($row["cityId"]== 2)? "checked" : "" ?>
-        > 
-        <label for="radio_0" class="custom-control-label">Taipei</label>
-      </div>
-      <div class="custom-control custom-radio custom-control-inline">
-        <input name="cityid" id="radio_1" type="radio" class="custom-control-input" value="6"
-        <?= ($row["cityId"]== 6)? "checked" : "" ?>
-        > 
-        <label for="radio_1" class="custom-control-label">TaiNei</label>
-      </div>
-      <div class="custom-control custom-radio custom-control-inline">
-        <input name="cityid" id="radio_2" type="radio" class="custom-control-input" value="4"
-         <?= ($row["cityId"]== 4)? "checked" : "" ?>
-        > 
-        <label for="radio_2" class="custom-control-label">Taichung</label>
-      </div>
-    </div>
-  </div> 
   <div class="form-group col">
     <div class="col-5">
       <button name="submit" type="submit" class="btn btn-primary">Submit</button>
