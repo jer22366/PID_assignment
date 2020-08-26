@@ -9,7 +9,10 @@ $result = mysqli_query ( $link, $commandText );
 if(isset($_POST["addshopping"])){
 	header("location: shoppingcar.php");
 }
-
+if(isset($_POST["logout"])){
+	session_destroy();
+	header("location: index.php");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,7 +34,8 @@ if(isset($_POST["addshopping"])){
 <div data-role="header">
 
 	<h1>shopping form</h1>
-	<button name="addshopping" type="submit" class="btn btn-primary ui-btn-right">購物車</button>	
+	<button name="addshopping" type="submit" class="btn btn-primary ui-btn-right">購物車</button>
+	<button name="logout" type="submit" class="btn btn-primary ui-btn-right">登出</button>		
 </div>
 
 <div data-role="content">

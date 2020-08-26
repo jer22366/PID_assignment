@@ -17,13 +17,6 @@ if(isset($_POST["submit"])){
   $result=$sql;
   mysqli_query($link,$result);
   header("location: shoppingcar.php");
-}else{
-  
-  // $sql = <<<multi
-  //   select * from employees where id=$id;
-  // multi;
-  // $result = mysqli_query($link,$sql);
-  // $row = mysqli_fetch_assoc($result);
 }
 if(isset($_POST["btnback"])){
   header("location: shoppingcar.php");

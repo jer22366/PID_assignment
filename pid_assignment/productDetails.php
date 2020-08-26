@@ -58,12 +58,6 @@ mysqli_close($link);
 				<p><?php echo "價錢:"." ".$row["price"] ?></p>
 				<p><?php echo "庫存:"." ".$row["stock"] ?></p>
 			</div>
-
-			<!-- <ul data-role="listview" data-inset="true" class="action-list">
-				<li><h4>名稱</h4><p><?php echo $row["officePhone"] ?></p></li>
-				<li><h4>價錢</h4><p><?php echo $row["cellPhone"] ?></p></li>
-				<li><h4>庫存</h4><p><?php echo $row["cellPhone"] ?></p></li>
-			</ul> -->
 			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
