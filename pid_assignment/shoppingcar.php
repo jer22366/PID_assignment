@@ -1,12 +1,15 @@
 <?php
-    $link = mysqli_connect("localhost","root","root","shoppingDB")or die ( mysqli_connect_error() );
+    require_once ("connDB.php");
+    session_start();
+    $account=$_SESSION["account"];
+    
+    require_once("connDB.php");
     mysqli_query($link,"set names utf-8");
     $sqlcommand = <<<sql
-        select * from shoppingcart;
+        select id,account,productname,amount from shoppingcart where account="$account";
      sql;
 
      $result=mysqli_query($link,$sqlcommand);
-     
 ?>
 
 <!DOCTYPE html>
@@ -31,8 +34,7 @@
 
       <tr>
         <th>id</th>
-        <th>idc</th>
-        <th>productid</th>
+        <th>account</th>
         <th>productname</th>
         <th>amount</th>
       </tr>
@@ -41,8 +43,7 @@
     <?php while($row = mysqli_fetch_assoc($result)){?>
         <tr>
             <td><?php echo $row["id"] ?></td>
-            <td><?php echo $row["idc"] ?></td>
-            <td><?php echo $row["productId"] ?></td>
+            <td><?php echo $row["account"] ?></td>
             <td><?php echo $row["productname"] ?></td>
             <td><?php echo $row["amount"] ?></td>
         <td>

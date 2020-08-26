@@ -1,5 +1,5 @@
 <?php
-    $link = mysqli_connect("localhost","root","root","shoppingDB")or die ( mysqli_connect_error() );
+    require_once("shoppingDB");
     if(isset($_POST["submit"])){  
       $Pname = $_POST["productname"];
       $price = $_POST["price"];
