@@ -23,9 +23,12 @@
         if($row["account"]==$account && $row["acpassword"]==$passowrd)
           header("location: shopform.php");    
       }
-        
+      
          
     }
+    if(isset($_POST["btnregister"])){
+      header("location: register.php");
+    }  
 ?>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -46,6 +49,7 @@
   <div class="form-group row">
     <div class="offset-4 col-8">
       <button name="btnlogin" type="submit" class="btn btn-primary">登入</button>
+      <button name="btnregister" type="submit" class="btn btn-primary">註冊會員</button>
       <button name="btnreset" type="reset" class="btn btn-primary">重置</button>
     </div>
   </div>
