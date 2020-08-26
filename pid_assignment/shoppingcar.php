@@ -9,7 +9,7 @@
         join products f on e.productId=f.productId where account="$account";
      sql;
      $result=mysqli_query($link,$sqlcommand);
-     if(isset($_POST["btnback"])){
+     if(isset($_POST["btnback"]) || isset($_POST["btnaddproduct"])){
        header("location: shopform.php");
      }
 
@@ -18,14 +18,21 @@
           select id,account,e.productId,e.productname,amount,(price * amount) as "price" from shoppingcart e 
           join products f on e.productId=f.productId where account="$account";
       sql;
+      $orderId = <<<sql
+          select * from orders;
+      sql;
       
+      $odI=mysqli_query($link,$orderId);
+      $resultId=mysqli_fetch_assoc($odI);
+      $Iodi=$resultId["orderId"];
       $result=mysqli_query($link,$sqlcommand);
       while($row = mysqli_fetch_assoc($result)){
         $IproductId=$row["productId"];
         $Iprice=$row["price"];
         $Iamount=$row["amount"];
+        
         $Insertorderdetial = <<<sql
-         INSERT INTO `order_detial`(`productId`, `price`, `amount`) VALUES ($IproductId,$Iprice,$Iamount)
+         INSERT INTO `order_detial`(`id`,`productId`, `price`, `amount`) VALUES ($Iodi,$IproductId,$Iprice,$Iamount)
         sql;
         $Iresult=mysqli_query($link,$Insertorderdetial);
       }
@@ -38,8 +45,9 @@
         delete from shoppingcart;
       sql;
       $result=mysqli_query($link,$deleteshoppingcart);
-      header("location: shopform.php");
+      header("location: ./shopform.php");
      }
+     
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +67,8 @@
 
 <div class="container"> 
   <div class="form-inline col-12" >
-      <h2 class=col-10>Shoppingcart List</h2><button name="btnok" type="submit" class="btn btn-primary float-right col-2">新增</button>
+      <h2 class=col-10>Shoppingcart List</h2>
+      <button name="btnaddproduct" type="submit" class="btn btn-primary  col-2">新增</button>
   </div>
 
   <table class="table table-hover">
@@ -97,7 +106,7 @@
 <form method="POST" action="shoppingcar.php">
 <div class="form-group col">
   <div class=text-center>
-    <button name="btnok" type="submit" class="btn btn-primary ">確定</button>
+    <button name="btnok" type="submit" class="btn btn-primary ">確定下購</button>
     <button name="btnback" type="submit" class="btn btn-primary">返回</button>
 </div>
 </body>

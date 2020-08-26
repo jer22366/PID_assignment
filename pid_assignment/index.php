@@ -18,8 +18,13 @@
 
         $_SESSION["account"]=$account;
         $_SESSION["password"]=$passowrd; 
+        
         if($row["account"]==$account && $row["acpassword"]==$passowrd){
-          header("location: shopform.php");   
+          if($row["ifmanager"]==1){
+            header("location:../manage.php");
+          }else{
+            header("location: shopform.php");
+          }
         }
       }
     }
