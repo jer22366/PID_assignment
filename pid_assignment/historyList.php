@@ -10,7 +10,13 @@
         join products g on f.productId=g.productId where account="$account"
      sql;
      $result=mysqli_query($link,$sqlcommand);
-     
+     $sumtext=<<<sql
+        SELECT sum(f.price*amount) as price FROM `orders` e 
+        join order_detial f on e.orderid=f.orderId 
+        join products g on f.productId=g.productId where account="$account"
+     sql;
+     $sum=mysqli_query($link,$sumtext);
+     $sumMoney=mysqli_fetch_assoc($sum);
 ?>
 
 
@@ -57,19 +63,28 @@
             <td><?php echo $row["price"] ?></td>
             <td><?php echo $row["orderDate"] ?></td>
         <td>
+        
             <span class="float-right">      
             </span>
         </td>
       </tr>
-      
-   <?php }?>
+   <?php }?>   
     </tbody>
   </table>
+  <div class="col-12">
+    <tr>
+        <td><span><h5 ><?php echo "總金額:" ?><?php echo $sumMoney["price"] ?></h5><span></td>
+    </tr>
+  </div>
+  
 </div>
 <form method="POST" action="shoppingcar.php">
-<div class="form-group col">
+<div class="form-group col-12">
+
   <div class=text-center>
     <button name="btnback" type="submit" class="btn btn-primary">返回</button>
+            
+  </div>
 </div>
 </body>
 </html>

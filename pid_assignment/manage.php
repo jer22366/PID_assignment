@@ -4,6 +4,12 @@
     select * from member;
   sql;
   $result=mysqli_query($link,$sqlcommand);
+  if(isset($_POST["btnback"])){
+    header("location: login.php");
+  }
+  if(isset($_POST["btnaddproduct"])){
+    header("location: addproduct.php");
+  }
 ?>
 
 <!DOCTYPE html>
@@ -21,10 +27,12 @@
 </head>
 <body>
 <div class="container"> 
+<form method="POST">
   <div class="form-inline col-12" >
       <h2 class=col-10>Shoppingcart List</h2>
+      <button name="btnaddproduct" type="submit" class="btn btn-primary col-2">新增商品</button>
   </div>
-
+</form>
   <table class="table table-hover">
     <thead>
 
@@ -40,6 +48,7 @@
             <td><?php echo $row["name"] ?></td>
         <td>
             <span class="float-right">
+            <a href="historyList.php?freezeid=<?= $row["id"]?>" class="btn btn-outline-success btn-sm">查看訂單</a>
             <?php if($row["freeze"]==1){ ?>
               <a href="freezemember.php?freezeid=<?= $row["id"]?>" class="btn btn-outline-success btn-sm">停用</a>
             <?php }else if($row["freeze"]==0){?>
@@ -57,8 +66,7 @@
 </div>
 <form method="POST" action="manage.php">
 <div class="form-group col">
-  <div class=text-center>
-    <button name="btnok" type="submit" class="btn btn-primary ">確定</button>
+  <div class=text-center >
     <button name="btnback" type="submit" class="btn btn-primary">返回</button>
 </div>
 </body>

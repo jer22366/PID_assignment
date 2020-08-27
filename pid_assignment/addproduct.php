@@ -1,16 +1,17 @@
 <?php
-    require_once("shoppingDB");
+    require_once("connDB.php");
     if(isset($_POST["submit"])){  
       $Pname = $_POST["productname"];
-      $price = $_POST["price"];
-
+      $Price = $_POST["price"];
+      $Pimg = $_POST["img"];
+      $Pstock = $_POST["stock"];
       $sqlcommand=<<<addsql
-        insert into products (productname,price) 
-        values('$Pname','$price');
+        insert into products (productname,price,stock,img) 
+        values("$Pname",$Price,$Pstock,"$Pimg");
       addsql;
       $result=$sqlcommand;
       mysqli_query($link,$result);
-      header("location: index.php");
+       header("location: manage.php");
     }   
    
 
@@ -32,15 +33,27 @@
 
 <form method="post" >
   <div class="form-group col">
-    <label for="text" class="col-5 col-form-label">ProductName</label> 
+    <label for="text" class="col-5 col-form-label">商品名稱</label> 
     <div class="col-8">
       <input id="text" name="productname" type="text" class="form-control">
     </div>
   </div>
   <div class="form-group col">
-    <label for="text1" class="col-4 col-form-label">Price</label> 
+    <label for="text1" class="col-4 col-form-label">價位</label> 
     <div class="col-8">
       <input id="text1" name="price" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group col">
+    <label for="text1" class="col-4 col-form-label">庫存</label> 
+    <div class="col-8">
+      <input id="text1" name="stock" type="text" class="form-control">
+    </div>
+  </div>
+  <div class="form-group col">
+    <label for="text1" class="col-4 col-form-label">圖片名稱</label> 
+    <div class="col-8">
+      <input id="text1" name="img" type="text" class="form-control">
     </div>
   </div>
   <div class="form-group col">
