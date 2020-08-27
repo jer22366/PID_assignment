@@ -15,15 +15,17 @@
      if(isset($_POST["btnaddproduct"])){
       header("location: index.php");
     }
-      
+    
      if(isset($_POST["btnok"]) && $_POST["btnok"]!==null){
+      $date=date("Y-m-d");
+      
       $sqlcommand = <<<sql
           select id,account,e.productId,e.productname,amount,(price * amount) as "price" from shoppingcart e 
           join products f on e.productId=f.productId where account="$account";
       sql;
 
       $Insertordertext = <<<sql
-      INSERT INTO `orders`( `account`) VALUES ("$account")
+      INSERT INTO `orders`( `account`,`orderDate`) VALUES ("$account","$date")
       sql;
 
       $result=mysqli_query($link,$Insertordertext);
@@ -45,7 +47,6 @@
         $IproductId=$row["productId"];
         $Iprice=$row["price"];
         $Iamount=$row["amount"];
-        echo $Iodi," ",$IproductId," ",$Iprice," ",$Iamount;  
         $Insertorderdetial = <<<sql
          INSERT INTO `order_detial`(`orderId`,`productId`, `price`, `amount`) VALUES ($Iodi,$IproductId,$Iprice,$Iamount)
         sql;

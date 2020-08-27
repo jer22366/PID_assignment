@@ -17,6 +17,9 @@ if(isset($_POST["logout"])){
 if(isset($_POST["login"])){
 	header("location: login.php");
 }
+if(isset($_POST["shoppinghistory"])){
+	header("location: historyList.php");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,6 +47,7 @@ if(isset($_POST["login"])){
 	<?php }else{?>
 		<button name="login" type="submit" class="btn btn-primary ui-btn-right">登入</button>	
 	<?php } ?>			
+	<button name="shoppinghistory"" type="submit" class="btn btn-primary ui-btn-right">歷史訂單</button>
 </div>
 
 <div data-role="content">
