@@ -7,7 +7,7 @@ $id = $_GET["id"];
 if(! is_numeric($id))
     die("id not a number");
 $sql = <<<multi
-    delete from shoppingcart where ID=$id;
+    delete from shoppingcart where id=$id;
 multi;
 $result=$sql;
 mysqli_query($link,$result);

@@ -19,7 +19,7 @@
         $_SESSION["account"]=$account;
         $_SESSION["password"]=$passowrd; 
         
-        if($row["account"]==$account && $row["acpassword"]==$passowrd){
+        if($row["account"]==$account && $row["acpassword"]==$passowrd && $row["freeze"]==1){
           if($row["ifmanager"]==1){
             header("location:manage.php");
           }else{

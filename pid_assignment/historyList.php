@@ -35,7 +35,6 @@
 <form method="POST">
   <div class="form-inline col-12" >
       <h2 class=col-10>Shoppingcart List</h2>
-          <button name="btnaddproduct" type="submit" class="btn btn-primary  col-2">新增</button>
   </div>
 </form>
   <table class="table table-hover">

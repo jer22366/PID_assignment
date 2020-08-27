@@ -1,3 +1,11 @@
+<?php
+  require_once ("connDB.php");
+  $sqlcommand = <<<sql
+    select * from member;
+  sql;
+  $result=mysqli_query($link,$sqlcommand);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,37 +15,37 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery.form.js"></script> 
+    <script type="text/javascript" src="/js/jquery/jquery-1.8.0.min.js"></script>  
     <title>Document</title>
 </head>
 <body>
 <div class="container"> 
   <div class="form-inline col-12" >
-      <h2 class=col-10>Shoppingcart List</h2><button name="btnok" type="submit" class="btn btn-primary float-right col-2">新增</button>
+      <h2 class=col-10>Shoppingcart List</h2>
   </div>
 
   <table class="table table-hover">
     <thead>
 
       <tr>
-        <th>id</th>
         <th>account</th>
-        <th>productname</th>
-        <th>amount</th>
-        <th>price</th>
+        <th>name</th>
       </tr>
     </thead>
     <tbody>
     <?php while($row = mysqli_fetch_assoc($result)){?>
         <tr>
-            <td><?php echo $row["id"] ?></td>
             <td><?php echo $row["account"] ?></td>
-            <td><?php echo $row["productname"] ?></td>
-            <td><?php echo $row["amount"] ?></td>
-            <td><?php echo $row["price"] ?></td>
+            <td><?php echo $row["name"] ?></td>
         <td>
             <span class="float-right">
-                <a href="editform.php?id=<?= $row["id"]?>" class="btn btn-outline-success btn-sm">edit</a>
-                <a href="deleteshoppingcart.php?id=<?= $row["id"]?>" class="btn btn-outline-danger btn-sm">delete</a>
+            <?php if($row["freeze"]==1){ ?>
+              <a href="freezemember.php?freezeid=<?= $row["id"]?>" class="btn btn-outline-success btn-sm">停用</a>
+            <?php }else if($row["freeze"]==0){?>
+              <a href="freezemember.php?freezeid=<?= $row["id"]?>" class="btn btn-outline-success btn-sm">開啟</a>
+            <?php } ?>
+              <a href="deletemember.php?delete=<?= $row["id"]?>" class="btn btn-outline-danger btn-sm">刪除</a>
                 
             </span>
         </td>
@@ -47,7 +55,7 @@
     </tbody>
   </table>
 </div>
-<form method="POST" action="shoppingcar.php">
+<form method="POST" action="manage.php">
 <div class="form-group col">
   <div class=text-center>
     <button name="btnok" type="submit" class="btn btn-primary ">確定</button>
