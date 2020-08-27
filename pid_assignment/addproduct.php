@@ -1,10 +1,17 @@
 <?php
     require_once("connDB.php");
-    if(isset($_POST["submit"])){  
+      $selectcommand=<<<addsql
+        select * from products
+      addsql;
+      $result=mysqli_query($link,$selectcommand);
+      $row=mysqli_fetch_assoc($result);
+      $Pid = $row["productid"]; 
       $Pname = $_POST["productname"];
       $Price = $_POST["price"];
       $Pimg = $_POST["img"];
       $Pstock = $_POST["stock"];
+    if(isset($_POST["btnadd"])){  
+      
       $sqlcommand=<<<addsql
         insert into products (productname,price,stock,img) 
         values("$Pname",$Price,$Pstock,"$Pimg");
@@ -13,7 +20,14 @@
       mysqli_query($link,$result);
        header("location: manage.php");
     }   
-   
+    else if(isset($_POST["btnedit"])){
+      $sqlcommand=<<<addsql
+        UPDATE `products` SET `productname`= "$Pname",`price`=$Price,`stock` = $Pstock,img="$Pimg" WHERE `products`.`productId` = $Pid;
+      addsql;
+      $result=$sqlcommand;
+      mysqli_query($link,$result);
+       header("location: manage.php");
+    }
 
 
 ?>
@@ -58,7 +72,8 @@
   </div>
   <div class="form-group col">
     <div class="col-4">
-      <button name="submit" type="submit" value="ok" class="btn btn-primary">Submit</button>
+      <button name="btnadd" type="submit" value="ok" class="btn btn-primary">新增</button>
+      <button name="btnedit" type="submit" value="ok" class="btn btn-primary">修改</button>
     </div>
   </div>
 </form>
