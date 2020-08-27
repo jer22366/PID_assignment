@@ -48,18 +48,16 @@
             <td><?php echo $row["name"] ?></td>
         <td>
             <span class="float-right">
-            <a href="historyList.php?freezeid=<?= $row["id"]?>" class="btn btn-outline-success btn-sm">查看訂單</a>
+            <a href="managercheckList.php?id=<?= $row["account"]?>" class="btn btn-outline-success btn-sm">查看訂單</a>
             <?php if($row["freeze"]==1){ ?>
               <a href="freezemember.php?freezeid=<?= $row["id"]?>" class="btn btn-outline-success btn-sm">停用</a>
             <?php }else if($row["freeze"]==0){?>
               <a href="freezemember.php?freezeid=<?= $row["id"]?>" class="btn btn-outline-success btn-sm">開啟</a>
             <?php } ?>
               <a href="deletemember.php?delete=<?= $row["id"]?>" class="btn btn-outline-danger btn-sm">刪除</a>
-                
             </span>
         </td>
       </tr>
-      
    <?php }?>
     </tbody>
   </table>
