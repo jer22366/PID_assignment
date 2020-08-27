@@ -9,43 +9,53 @@
         join products f on e.productId=f.productId where account="$account";
      sql;
      $result=mysqli_query($link,$sqlcommand);
-     if(isset($_POST["btnback"]) || isset($_POST["btnaddproduct"])){
-       header("location: shopform.php");
+     if(isset($_POST["btnback"]) ){
+       header("location: index.php");
      }
-
+     if(isset($_POST["btnaddproduct"])){
+      header("location: index.php");
+    }
+      
      if(isset($_POST["btnok"]) && $_POST["btnok"]!==null){
       $sqlcommand = <<<sql
           select id,account,e.productId,e.productname,amount,(price * amount) as "price" from shoppingcart e 
           join products f on e.productId=f.productId where account="$account";
       sql;
+
+      $Insertordertext = <<<sql
+      INSERT INTO `orders`( `account`) VALUES ("$account")
+      sql;
+
+      $result=mysqli_query($link,$Insertordertext);
+
+      $deleteshoppingcart = <<<sql
+        delete from shoppingcart;
+      sql;
+
       $orderId = <<<sql
-          select * from orders;
+          select * from orders order by orderId desc;
       sql;
       
       $odI=mysqli_query($link,$orderId);
       $resultId=mysqli_fetch_assoc($odI);
       $Iodi=$resultId["orderId"];
       $result=mysqli_query($link,$sqlcommand);
+     
       while($row = mysqli_fetch_assoc($result)){
         $IproductId=$row["productId"];
         $Iprice=$row["price"];
         $Iamount=$row["amount"];
-        
+        echo $Iodi," ",$IproductId," ",$Iprice," ",$Iamount;  
         $Insertorderdetial = <<<sql
-         INSERT INTO `order_detial`(`id`,`productId`, `price`, `amount`) VALUES ($Iodi,$IproductId,$Iprice,$Iamount)
+         INSERT INTO `order_detial`(`orderId`,`productId`, `price`, `amount`) VALUES ($Iodi,$IproductId,$Iprice,$Iamount)
         sql;
         $Iresult=mysqli_query($link,$Insertorderdetial);
       }
-      
-      $Insertordertext = <<<sql
-          INSERT INTO `orders`( `account`) VALUES ("$account")
-      sql;
-      $result=mysqli_query($link,$Insertordertext);
-      $deleteshoppingcart = <<<sql
-        delete from shoppingcart;
+      $addconstrant = <<<sql
+        ALTER TABLE order_detial ADD CONSTRAINT fk_order_Id FOREIGN KEY (orderId) REFERENCES orders(orderId);
       sql;
       $result=mysqli_query($link,$deleteshoppingcart);
-      header("location: ./shopform.php");
+      header("location: index.php"); 
      }
      
 ?>
@@ -66,11 +76,12 @@
 <body>
 
 <div class="container"> 
+<form method="POST">
   <div class="form-inline col-12" >
       <h2 class=col-10>Shoppingcart List</h2>
-      <button name="btnaddproduct" type="submit" class="btn btn-primary  col-2">新增</button>
+          <button name="btnaddproduct" type="submit" class="btn btn-primary  col-2">新增</button>
   </div>
-
+</form>
   <table class="table table-hover">
     <thead>
 

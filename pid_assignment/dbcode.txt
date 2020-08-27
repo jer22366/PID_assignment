@@ -1,0 +1,6 @@
+ALTER TABLE order_detial
+ADD CONSTRAINT fk_orders_Id FOREIGN KEY (orderId) REFERENCES orders(orderId) ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+
+

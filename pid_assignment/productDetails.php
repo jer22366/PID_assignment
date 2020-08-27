@@ -25,7 +25,7 @@ if(isset($_POST["submit"])){
 		VALUES ("$account",$id,"$productname",$amount);
 		SqlQuery;
 		$result = mysqli_query ( $link, $inserttext );
-		header("location: shopform.php");
+		header("location: index.php");
 		
 }
 mysqli_close($link);
