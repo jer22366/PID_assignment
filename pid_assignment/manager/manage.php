@@ -1,11 +1,11 @@
 <?php
-  require_once ("connDB.php");
+  require_once ("../connDB.php");
   $sqlcommand = <<<sql
     select * from member;
   sql;
   $result=mysqli_query($link,$sqlcommand);
   if(isset($_POST["btnback"])){
-    header("location: login.php");
+    header("location: ../login.php");
   }
   if(isset($_POST["BtnAddProduct"])){
     header("location: Addproduct.php");

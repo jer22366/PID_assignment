@@ -13,7 +13,7 @@ sql;
 $cntresult=mysqli_query($link,$cnt);
 $shopcnt=mysqli_fetch_assoc($cntresult);	
 if(isset($_POST["addshopping"])){
-	header("location: shoppingcar.php");
+	header("location: member/shoppingcar.php");
 }
 if(isset($_POST["logout"])){
 	session_destroy();
@@ -23,7 +23,7 @@ if(isset($_POST["login"])){
 	header("location: login.php");
 }
 if(isset($_POST["shoppinghistory"])){
-	header("location: historyList.php");
+	header("location: member/historyList.php");
 }
 
 
@@ -58,7 +58,7 @@ if(isset($_POST["shoppinghistory"])){
 	<?php }else{?>
 		<button name="login" type="submit" class="btn btn-primary ui-btn-right">登入</button>	
 	<?php } ?>			
-	<button name="shoppinghistory"" type="submit" class="btn btn-primary ui-btn-right">歷史訂單</button>
+	<button name="shoppinghistory" type="submit" class="btn btn-primary ui-btn-right">歷史訂單</button>
 </div>
 
 <div data-role="content">
@@ -67,7 +67,7 @@ if(isset($_POST["shoppinghistory"])){
   <?php while ($row = mysqli_fetch_assoc($result)) : ?>
 		<li>
    		<?php if(!empty($_SESSION["account"]) && !empty($_SESSION["password"])) {?>
-	   		<a href="productDetails.php?id=<?php echo $row["productId"] ?>"> 
+	   		<a href="member/productDetails.php?id=<?php echo $row["productId"] ?>"> 
    		<?php }else{?>
 			<a href="login.php?"> 
    		<?php }?>

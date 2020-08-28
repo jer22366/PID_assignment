@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once ("connDB.php");
+    require_once ("../connDB.php");
     $account=$_SESSION["account"];
     $password=$_SESSION["password"];
 
@@ -78,7 +78,7 @@
   </div>
   
 </div>
-<form method="POST" action="shoppingcar.php">
+<form method="POST" action="../member/shoppingcar.php">
 <div class="form-group col-12">
 
   <div class=text-center>

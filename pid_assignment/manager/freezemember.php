@@ -1,5 +1,5 @@
 <?php
-require_once ("connDB.php");
+require_once ("../connDB.php");
 
 if(!isset($_GET["freezeid"])){
     die("freezeid not found");

@@ -1,8 +1,7 @@
 <?php
-    require_once("connDB.php");
-    $id=$_GET["id"];
+    require_once("../connDB.php");
       $selectcommand=<<<addsql
-        select * from products where productId=$id;
+        select * from products
       addsql;
       $result=mysqli_query($link,$selectcommand);
       $row=mysqli_fetch_assoc($result);
@@ -10,16 +9,19 @@
       $Price = $_POST["price"];
       $Pimg = $_POST["img"];
       $Pstock = $_POST["stock"];
-    if(isset($_POST["btnedit"])){  
+    if(isset($_POST["btnadd"])){  
       
       $sqlcommand=<<<addsql
-            UPDATE `products` SET `productname` = "$Pname",price=$Price,stock=$Pstock,img="$Pimg" WHERE `products`.`productId` = $id;
+        insert into products (productname,price,stock,img) 
+        values("$Pname",$Price,$Pstock,"$Pimg");
       addsql;
       $result=$sqlcommand;
       mysqli_query($link,$result);
        header("location: manage.php");
     }   
-
+    if(isset($_POST["btnbackmanage"])){
+      header("location: manage.php");
+    }
 
 ?>
 
@@ -40,30 +42,31 @@
   <div class="form-group col">
     <label for="text" class="col-5 col-form-label">商品名稱</label> 
     <div class="col-8">
-      <input id="text" name="productname" type="text" class="form-control" placeholder=<?= $row["productname"] ?>>
+      <input id="text" name="productname" type="text" class="form-control">
     </div>
   </div>
   <div class="form-group col">
     <label for="text1" class="col-4 col-form-label">價位</label> 
     <div class="col-8">
-      <input id="text1" name="price" type="text" class="form-control" placeholder=<?= $row["price"] ?>>
+      <input id="text1" name="price" type="text" class="form-control">
     </div>
   </div>
   <div class="form-group col">
     <label for="text1" class="col-4 col-form-label">庫存</label> 
     <div class="col-8">
-      <input id="text1" name="stock" type="text" class="form-control" placeholder=<?= $row["stock"] ?>>
+      <input id="text1" name="stock" type="text" class="form-control">
     </div>
   </div>
   <div class="form-group col">
     <label for="text1" class="col-4 col-form-label">圖片名稱</label> 
     <div class="col-8">
-      <input id="text1" name="img" type="text" class="form-control" placeholder=<?= $row["img"]?>>
+      <input id="text1" name="img" type="text" class="form-control">
     </div>
   </div>
   <div class="form-group col">
     <div class="col-4">
-      <button name="btnedit" type="submit" value="edit" class="btn btn-primary">修改</button>
+      <button name="btnadd" type="submit" value="ok" class="btn btn-primary">新增</button>
+      <button name="btnbackmanage" type="submit" value="ok" class="btn btn-primary">返回</button>
     </div>
   </div>
 </form>

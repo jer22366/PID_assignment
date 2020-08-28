@@ -1,5 +1,5 @@
 <?php 
-	  require("connDB.php");
+	  require_once ("connDB.php");
     session_start();
     if(isset($_POST["btnlogin"])){
       
@@ -21,7 +21,7 @@
         
         if($row["account"]==$account && $row["acpassword"]==$passowrd && $row["freeze"]==1){
           if($row["ifmanager"]==1){
-            header("location:manage.php");
+            header("location:manager/manage.php");
           }else{
             header("location: index.php");
           }

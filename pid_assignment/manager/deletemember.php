@@ -1,5 +1,5 @@
 <?php 
-require("connDB.php");
+require("../connDB.php");
 if(!isset($_GET["delete"])){
     die("deleteid not found");
 }

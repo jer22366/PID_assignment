@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once("../connDB.php");
 $account=$_SESSION["account"];
 if (! isset ( $_GET ["id"] ))
 	die ( "Parameter id not found." );
@@ -8,7 +9,7 @@ $id = $_GET ["id"];
 if (! is_numeric ( $id ))
 	die ( "id not a number." );
 
-require_once("connDB.php");
+
 
 $commandText = <<<SqlQuery
 select * from products where productId=$id;
@@ -25,7 +26,7 @@ if(isset($_POST["submit"])){
 		VALUES ("$account",$id,"$productname",$amount);
 		SqlQuery;
 		$result = mysqli_query ( $link, $inserttext );
-		header("location: index.php");
+		header("location: ../index.php");
 		
 }
 mysqli_close($link);
@@ -52,7 +53,7 @@ mysqli_close($link);
 			<h1>Product Details</h1>
 		</div>
 		<div data-role="content">
-			<img src="images/<?php echo $row["img"] ?>" class="product-pic" width="100" />
+			<img src="../images/<?php echo $row["img"] ?>" class="product-pic" width="100" />
 			<div class="product-details">
 				<h3><?php echo "名稱:"." ".$row["productname"] ?></h3>
 				<p><?php echo "價錢:"." ".$row["price"] ?></p>

@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once ("connDB.php");
+    require_once ("../connDB.php");
     $account=$_SESSION["account"];
     $password=$_SESSION["password"];
 

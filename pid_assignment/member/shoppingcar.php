@@ -1,5 +1,5 @@
 <?php
-    require_once ("connDB.php");
+    require_once ("../connDB.php");
     session_start();
     $account=$_SESSION["account"];
 
@@ -16,10 +16,10 @@
 
      $result=mysqli_query($link,$sqlcommand);
      if(isset($_POST["btnback"]) ){
-       header("location: index.php");
+       header("location: ../index.php");
      }
      if(isset($_POST["btnaddproduct"])){
-      header("location: index.php");
+      header("location: ../index.php");
     }
     if(isset($_POST["btnok"])){
       $date=date("Y-m-d");
@@ -63,7 +63,7 @@
       sql;
 
       $result=mysqli_query($link,$deleteshoppingcart);
-      header("location: index.php"); 
+      header("location: ../index.php"); 
      }else{
        header("loaction:shoppingcar.php");
      }

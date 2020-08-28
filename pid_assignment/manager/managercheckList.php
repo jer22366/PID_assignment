@@ -1,5 +1,5 @@
 <?php
-    require_once ("connDB.php");
+    require_once ("../connDB.php");
 
     $account=$_GET["id"];
     $sqlcommand = <<<sql
