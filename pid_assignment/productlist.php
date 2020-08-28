@@ -1,11 +1,11 @@
 <?php
+    session_start();
     require_once ("connDB.php");
+    $account=$_SESSION["account"];
+    $password=$_SESSION["password"];
 
-    $account=$_GET["id"];
     $sqlcommand = <<<sql
-        SELECT account,productname,amount,(f.price*amount) as price,orderDate FROM `orders` e 
-        join order_detial f on e.orderid=f.orderId 
-        join products g on f.productId=g.productId where account="$account"
+        SELECT * from products
      sql;
      $result=mysqli_query($link,$sqlcommand);
      $sumtext=<<<sql
@@ -15,12 +15,9 @@
      sql;
      $sum=mysqli_query($link,$sumtext);
      $sumMoney=mysqli_fetch_assoc($sum);
-     
      if(isset($_POST["btnbackmanage"])){
-      header("location: manage.php");
+       header("location: manage.php");
      }
-       
-     
 ?>
 
 
@@ -51,24 +48,24 @@
     <thead>
 
       <tr>
-        <th>account</th>
+        <th>productId</th>
         <th>productname</th>
-        <th>amount</th>
         <th>price</th>
-        <th>orderDate</th>
+        <th>stock</th>
+        <th>img</th>
       </tr>
     </thead>
     <tbody>
     <?php while($row = mysqli_fetch_assoc($result)){?>
         <tr>
-            <td><?php echo $row["account"] ?></td>
+            <td><?php echo $row["productId"] ?></td>
             <td><?php echo $row["productname"] ?></td>
-            <td><?php echo $row["amount"] ?></td>
             <td><?php echo $row["price"] ?></td>
-            <td><?php echo $row["orderDate"] ?></td>
+            <td><?php echo $row["stock"] ?></td>
+            <td><?php echo $row["img"] ?></td>
         <td>
-        
-            <span class="float-right">      
+            <span class="float-right">   
+                <a href="editproduct.php?id=<?= $row["productId"]?>" class="btn  btn-warning">修改商品</a>   
             </span>
         </td>
       </tr>
@@ -82,13 +79,13 @@
   </div>
   
 </div>
-<form method="POST" action="managercheckList.php">
+<form method="POST" action="productlist.php">
 <div class="form-group col-12">
 
   <div class=text-center>
-    <button name="btnbackmanage" type="submit" class="btn btn-primary">返回</button>   
+    <button name="btnbackmanage" type="submit" class="btn btn-primary">返回</button>
+            
   </div>
-</form>
 </div>
 </body>
 </html>

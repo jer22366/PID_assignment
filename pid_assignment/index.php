@@ -1,12 +1,17 @@
 <?php
 require_once ("connDB.php");
 session_start();
+$account=$_SESSION["account"];
 $commandText = <<<SqlQuery
 select productId, productname, price, img  from products
 SqlQuery;
 
 $result = mysqli_query ( $link, $commandText );
-
+$cnt = <<<sql
+    select count(account) as cnt from shoppingcart where account="$account";
+sql;
+$cntresult=mysqli_query($link,$cnt);
+$shopcnt=mysqli_fetch_assoc($cntresult);	
 if(isset($_POST["addshopping"])){
 	header("location: shoppingcar.php");
 }
@@ -20,6 +25,8 @@ if(isset($_POST["login"])){
 if(isset($_POST["shoppinghistory"])){
 	header("location: historyList.php");
 }
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,7 +48,11 @@ if(isset($_POST["shoppinghistory"])){
 <div data-role="header">
 
 	<h1>shopping form</h1>
-	<button name="addshopping" type="submit" class="btn btn-primary ui-btn-right">購物車</button>
+	<?php if ($shopcnt["cnt"]!=0){ ?>
+		<button name="addshopping" type="submit " class="btn btn-primary ui-btn-right" >購物車</button>
+	<?php }else{ ?>
+		<button name="addshopping" type="submit " class="btn btn-primary ui-btn-right" disabled="disabled">購物車</button>
+	<?php }?>
 	<?php if(!empty($_SESSION["account"]) && !empty($_SESSION["password"])) { ?>
 		<button name="logout" type="submit" class="btn btn-primary ui-btn-right">登出</button>
 	<?php }else{?>
@@ -55,9 +66,11 @@ if(isset($_POST["shoppinghistory"])){
 
   <?php while ($row = mysqli_fetch_assoc($result)) : ?>
 		<li>
-    <!-- <input type="checkbox" id="c1" name="checkbox[]" />  -->
-    
-		<a href="productDetails.php?id=<?php echo $row["productId"] ?>"> 
+   		<?php if(!empty($_SESSION["account"]) && !empty($_SESSION["password"])) {?>
+	   		<a href="productDetails.php?id=<?php echo $row["productId"] ?>"> 
+   		<?php }else{?>
+			<a href="login.php?"> 
+   		<?php }?>
 			<img src="images/<?php echo $row["img"]?>" width="150">
 			<h5><label for="c1"><span></span><?php echo "名稱:". $row["productname"] . " " . " 價錢:" . $row["price"].""?></h4></label><p>
 			<!-- <p><?php echo $row["title"] ?> </p> <span class="ui-li-count"><?php echo $row["reportCount"] ?></span>  -->

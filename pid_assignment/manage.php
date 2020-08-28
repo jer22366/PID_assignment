@@ -10,8 +10,8 @@
   if(isset($_POST["BtnAddProduct"])){
     header("location: Addproduct.php");
   }
-  if(isset($_POST["BtnEditProduct"])){
-    header("location: Editproduct.php");
+  if(isset($_POST["BtnProductlist"])){
+    header("location: productlist.php");
   }
 ?>
 
@@ -34,7 +34,7 @@
   <div class="form-inline col-12" >
       <h2 class=col-8>Shoppingcart List</h2>
       <button name="BtnAddProduct" type="submit" class="btn btn-primary col-2">新增商品</button>
-      <button name="BtnEditProduct" type="submit" class="btn btn-warning col-2">修改商品</button>
+      <button name="BtnProductlist" type="submit" class="btn btn-warning col-2">商品列表</button>
   </div>
 </form>
   <table class="table table-hover">

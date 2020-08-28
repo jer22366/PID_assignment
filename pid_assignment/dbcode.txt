@@ -4,3 +4,8 @@ ON UPDATE CASCADE;
 
 SELECT account,productname,amount,(f.price*amount) as price,orderDate FROM `orders` e join order_detial f on e.orderid=f.orderId join products g on f.productId=g.productId where account="qq1234"
 
+
+
+
+
+UPDATE `products` SET `productname` = "$Pname",price=$Price,stock=$Pstock,img="$Pimg" WHERE `products`.`productId` = $id;
