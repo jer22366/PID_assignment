@@ -8,7 +8,7 @@
                 $cID=$checkid; 
             }
             $commandText = <<<sqlcommand
-                INSERT INTO `member`(`idC`, `name`, `account`, `acpassword`) VALUES ("$cID","$Name","$Account","$Password");
+                INSERT INTO `member`(`idC`, `name`, `account`, `acpassword`,`ifmanager`,`freeze`) VALUES ("$cID","$Name","$Account","$Password",0,1);
             sqlcommand;
             $result = mysqli_query ( $link, $commandText );
             header("location: index.php");

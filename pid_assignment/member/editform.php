@@ -13,7 +13,7 @@ if(isset($_POST["submit"])){
         update shoppingcart set amount='$Amount'
         where id = $id;
       multi; 
-  require("connDB.php");
+  require("../connDB.php");
   $result=$sql;
   mysqli_query($link,$result);
   header("location: shoppingcar.php");
