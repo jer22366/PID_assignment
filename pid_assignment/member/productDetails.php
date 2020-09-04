@@ -18,16 +18,27 @@ SqlQuery;
 $result = mysqli_query ( $link, $commandText );
 $row = mysqli_fetch_assoc ( $result );
 
+
+
 if(isset($_POST["submit"])){
-	$amount=$_POST["Amount"];
-	$productname=$row["productname"];
 	$inserttext = <<<SqlQuery
+		select stock from products
+	SqlQuery;
+	$sumstock = mysqli_fetch_assoc(mysqli_query ( $link, $inserttext ));
+
+	$amount=$_POST["Amount"];
+	if($amount>$sumstock["stock"]){?>
+		<script>alert("超過庫存了")</script>
+		
+	<?php }else{
+		$productname=$row["productname"];
+		$inserttext = <<<SqlQuery
 		INSERT INTO `shoppingcart`(account, productId, productname, amount) 
 		VALUES ("$account",$id,"$productname",$amount);
 		SqlQuery;
 		$result = mysqli_query ( $link, $inserttext );
 		header("location: ../index.php");
-		
+	 }	
 }
 mysqli_close($link);
 ?>

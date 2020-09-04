@@ -3,7 +3,7 @@
     require_once ("../connDB.php");
     $account=$_SESSION["account"];
     $password=$_SESSION["password"];
-
+    if(empty($account))
     $sqlcommand = <<<sql
         SELECT account,productname,amount,(f.price*amount) as price,orderDate FROM `orders` e 
         join order_detial f on e.orderid=f.orderId 
