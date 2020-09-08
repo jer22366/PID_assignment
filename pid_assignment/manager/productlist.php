@@ -18,6 +18,9 @@
      if(isset($_POST["btnbackmanage"])){
        header("location: manage.php");
      }
+     if(isset($_POST["btnbackmanage"])){
+      header("location: manage.php");
+    }
 ?>
 
 
@@ -65,18 +68,14 @@
             <td><?php echo $row["img"] ?></td>
         <td>
             <span class="float-right">   
-                <a href="editproduct.php?id=<?= $row["productId"]?>" class="btn  btn-warning">修改商品</a>   
+                <a href="editproduct.php?id=<?= $row["productId"]?>" class="btn  btn-warning">修改商品</a>
+                <a href="deleteproduct.php?id=<?= $row["productId"]?>" class="btn  btn-danger">刪除</a>   
             </span>
         </td>
       </tr>
    <?php }?>   
     </tbody>
   </table>
-  <div class="col-12">
-    <tr>
-        <td><span><h5 ><?php echo "總金額:" ?><?php echo $sumMoney["price"] ?></h5><span></td>
-    </tr>
-  </div>
   
 </div>
 <form method="POST" action="productlist.php">

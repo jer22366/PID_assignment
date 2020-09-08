@@ -2,21 +2,22 @@
     session_start();
     require_once ("../connDB.php");
     $account=$_SESSION["account"];
+    
     $password=$_SESSION["password"];
-    if(empty($account))
     $sqlcommand = <<<sql
-        SELECT account,productname,amount,(f.price*amount) as price,orderDate FROM `orders` e 
-        join order_detial f on e.orderid=f.orderId 
-        join products g on f.productId=g.productId where account="$account"
-     sql;
-     $result=mysqli_query($link,$sqlcommand);
-     $sumtext=<<<sql
-        SELECT sum(f.price*amount) as price FROM `orders` e 
-        join order_detial f on e.orderid=f.orderId 
-        join products g on f.productId=g.productId where account="$account"
-     sql;
-     $sum=mysqli_query($link,$sumtext);
-     $sumMoney=mysqli_fetch_assoc($sum);
+      SELECT account,productname,amount,(f.price*amount) as price,orderDate FROM `orders` e 
+      join order_detial f on e.orderid=f.orderId 
+      join products g on f.productId=g.productId where account="$account"
+    sql;
+    $result=mysqli_query($link,$sqlcommand);
+    
+    $sumtext=<<<sql
+      SELECT sum(f.price*amount) as price FROM `orders` e 
+      join order_detial f on e.orderid=f.orderId 
+      join products g on f.productId=g.productId where account="$account"
+    sql;
+    $sum=mysqli_query($link,$sumtext);
+    $sumMoney=mysqli_fetch_assoc($sum);
 ?>
 
 

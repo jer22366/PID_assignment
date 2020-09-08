@@ -1,7 +1,7 @@
 <?php 
 	  require_once ("connDB.php");
     session_start();
-    if(isset($_POST["btnlogin"])){
+    if(isset($_POST["btnlogin"]) || isset($_POST["btnmangerlogin"])){
       
       $account=$_POST["account"];
       $passowrd=$_POST["password"];
@@ -46,7 +46,7 @@
   <div class="form-group row">
     <label for="password" class="col-4 col-form-label">密碼</label> 
     <div class="col-8">
-      <input id="password" name="password" type="text" class="form-control">
+      <input id="password" name="password" type="password" class="form-control">
     </div>
   </div> 
   <div class="form-group row">
@@ -54,6 +54,7 @@
       <button name="btnlogin" type="submit" class="btn btn-primary">登入</button>
       <button name="btnregister" type="submit" class="btn btn-primary">註冊會員</button>
       <button name="btnreset" type="reset" class="btn btn-primary">重置</button>
+      <button name="btnmangerlogin" type="submit" class="btn btn-primary">管理員登入</button>
     </div>
   </div>
 </form>
