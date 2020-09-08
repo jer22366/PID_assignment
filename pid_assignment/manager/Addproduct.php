@@ -1,5 +1,7 @@
 <?php
     require_once("../connDB.php");
+      
+    if(isset($_POST["btnadd"])){  
       $selectcommand=<<<addsql
         select * from products
       addsql;
@@ -9,7 +11,6 @@
       $Price = $_POST["price"];
       $Pimg = $_POST["img"];
       $Pstock = $_POST["stock"];
-    if(isset($_POST["btnadd"])){  
       
       $sqlcommand=<<<addsql
         insert into products (productname,price,stock,img) 
