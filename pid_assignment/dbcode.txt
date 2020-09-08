@@ -1,3 +1,14 @@
+create database shoppingDB
+
+create table member(id int auto_increment PRIMARY key,idc varchar(15),name varchar(15),account varchar(15),acpassword varchar(15),ifmanager int(1),freeze int(1))
+create table orders(orderId int auto_increment PRIMARY key,account varchar(15),orderDate varchar(20))
+create table order_detial(orderId int,productId int,price int,amount int)
+create table products(productId int auto_increment PRIMARY key,productname varchar(20),price int,stock int(5),img varchar(20))
+create table shoppingcart(id int auto_increment PRIMARY key,account varchar(15),productId int,productname varchar(15),amount int)
+
+
+ALTER TABLE `order_detial` CHANGE `orderId` `orderId` INT(11) NOT NULL;
+ALTER TABLE `orders` CHANGE `orderDate` `orderDate` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 ALTER TABLE order_detial
 ADD CONSTRAINT fk_orders_Id FOREIGN KEY (orderId) REFERENCES orders(orderId) ON DELETE CASCADE
 ON UPDATE CASCADE;
