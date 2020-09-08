@@ -30,15 +30,17 @@ if(isset($_POST["submit"])){
 	if($amount>$sumstock["stock"]){?>
 		<script>alert("超過庫存了")</script>
 		
+	<?php }else if($amount<=0){?>
+		<script>alert("輸入不能為0或負的喔")</script>
 	<?php }else{
 		$productname=$row["productname"];
 		$inserttext = <<<SqlQuery
-		INSERT INTO `shoppingcart`(account, productId, productname, amount) 
-		VALUES ("$account",$id,"$productname",$amount);
+			INSERT INTO `shoppingcart`(account, productId, productname, amount) 
+			VALUES ("$account",$id,"$productname",$amount);
 		SqlQuery;
 		$result = mysqli_query ( $link, $inserttext );
 		header("location: ../index.php");
-	 }	
+		}	
 }
 mysqli_close($link);
 ?>
