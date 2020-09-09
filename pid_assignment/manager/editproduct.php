@@ -1,5 +1,17 @@
 <?php
     require_once("../connDB.php");
+    if (file_exists('upload/' . $_FILES['my_file']['name'])){
+      echo '檔案已存在。<br/>';
+    } else {
+    $file =$_FILES['my_file']['tmp_name'];
+    $dest ='../images/'.$_FILES['my_file']['name'];
+    
+    # 將檔案移至指定位置
+    move_uploaded_file($file, $dest);
+    echo $dest;
+   }
+
+
     $id=$_GET["id"];
       $selectcommand=<<<addsql
         select * from products where productId=$id;
@@ -8,7 +20,7 @@
       $row=mysqli_fetch_assoc($result);
       $Pname = $_POST["productname"];
       $Price = $_POST["price"];
-      $Pimg = $_POST["img"];
+      $Pimg = $_FILES['my_file']['name'];
       $Pstock = $_POST["stock"];
     if(isset($_POST["btnedit"])){  
       
@@ -36,7 +48,7 @@
 <body>
 
 
-<form method="post" >
+<form method="post" enctype="multipart/form-data">
   <div class="form-group col">
     <label for="text" class="col-5 col-form-label">商品名稱</label> 
     <div class="col-8">
@@ -58,7 +70,7 @@
   <div class="form-group col">
     <label for="text1" class="col-4 col-form-label">圖片名稱</label> 
     <div class="col-8">
-      <input id="text1" name="img" type="text" class="form-control" placeholder=<?= $row["img"]?>>
+        <input type="file" name="my_file">
     </div>
   </div>
   <div class="form-group col">
