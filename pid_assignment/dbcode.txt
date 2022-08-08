@@ -1,10 +1,10 @@
-create database shoppingDB
+create database shoppingDB;
 
-create table member(id int auto_increment PRIMARY key,idc varchar(15),name varchar(15),account varchar(15),acpassword varchar(15),ifmanager int(1),freeze int(1))
-create table orders(orderId int auto_increment PRIMARY key,account varchar(15),orderDate varchar(20))
-create table order_detial(orderId int,productId int,price int,amount int)
-create table products(productId int auto_increment PRIMARY key,productname varchar(20),price int,stock int(5),img varchar(20))
-create table shoppingcart(id int auto_increment PRIMARY key,account varchar(15),productId int,productname varchar(15),amount int)
+create table member(id int auto_increment PRIMARY key,idc varchar(15),name varchar(15),account varchar(15),acpassword varchar(15),ifmanager int(1),freeze int(1));
+create table orders(orderId int auto_increment PRIMARY key,account varchar(15),orderDate varchar(20));
+create table order_detial(orderId int,productId int,price int,amount int);
+create table products(productId int auto_increment PRIMARY key,productname varchar(20),price int,stock int(5),img varchar(20));
+create table shoppingcart(id int auto_increment PRIMARY key,account varchar(15),productId int,productname varchar(15),amount int);
 
 
 ALTER TABLE `order_detial` CHANGE `orderId` `orderId` INT(11) NOT NULL;
@@ -13,10 +13,12 @@ ALTER TABLE order_detial
 ADD CONSTRAINT fk_orders_Id FOREIGN KEY (orderId) REFERENCES orders(orderId) ON DELETE CASCADE
 ON UPDATE CASCADE;
 
-SELECT account,productname,amount,(f.price*amount) as price,orderDate FROM `orders` e join order_detial f on e.orderid=f.orderId join products g on f.productId=g.productId where account="qq1234"
+SELECT account,productname,amount,(f.price*amount) as price,orderDate FROM `orders` e join order_detial f on e.orderid=f.orderId join products g on f.productId=g.productId where account="qq1234";
 
-
-
+insert into  `member`(`idc`, `name`, `account`, `acpassword`,`ifmanager`,`freeze`) VALUES ('N123456789','jeff','qq1234','aa1234',1,1);
+insert into  `products`(`productname`, `price`, `stock`, `img`) VALUES ('bike',2000,100,'bike1.jpeg');
+insert into  `products`(`productname`, `price`, `stock`, `img`) VALUES ('cellphone',2000,100,'cellphone1.png');
+insert into  `products`(`productname`, `price`, `stock`, `img`) VALUES ('watch',2000,100,'watch1.jpeg');
 
 
 UPDATE `products` SET `productname` = "$Pname",price=$Price,stock=$Pstock,img="$Pimg" WHERE `products`.`productId` = $id;
